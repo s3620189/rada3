@@ -1,0 +1,19 @@
+version: '3'
+services:
+  db:
+    container_name: db
+    image: postgres:10.7
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_PASSWORD=password
+  web:
+    image: as3:latest
+    ports:
+      - 3000:3000
+    environment:
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=password
+      - DB_HOSTNAME=localhost
+      - DB_NAME=servian

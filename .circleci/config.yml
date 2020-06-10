@@ -115,7 +115,7 @@ jobs:
   package:
     machine: true
     environment:
-      ECR: <insert>
+      ECR: 899203606501.dkr.ecr.us-east-1.amazonaws.com/app
       reponame: app
       NODE_ENV: production
     steps:
@@ -148,7 +148,7 @@ jobs:
           name: Package helm
           command: | 
 
-            #helm package helm/acme --app-version ${CIRCLE_SHA1} -d artifacts
+            helm package helm/as3 --app-version ${CIRCLE_SHA1} -d artifacts
       - run:
           name: Package infra
           command: |

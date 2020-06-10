@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "as3"
+spec:
+  selector:
+    matchLabels:
+      app: "as3"
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: "as3"
+    spec:
+      containers:
+      - image: {{ .Values.image }}
+        name: "as3"
+        env:
+          - name: VTT_dbhost
+            value: {{ .Values.dbhost }}
+        ports:
+        - containerPort: 80
