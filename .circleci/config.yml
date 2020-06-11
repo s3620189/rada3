@@ -115,7 +115,7 @@ jobs:
   package:
     machine: true
     environment:
-      ECR: 899203606501.dkr.ecr.us-east-1.amazonaws.com/app
+      ECR: 899203606501.dkr.ecr.us-east-1.amazonaws.com
       reponame: app
       NODE_ENV: production
       AWS_ACCESS_KEY_ID: ASIA5CXFWE7S2HK7MGVT
