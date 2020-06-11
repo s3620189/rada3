@@ -149,7 +149,7 @@ jobs:
           command: | 
             
             helm package helm/as3 --app-version ${CIRCLE_SHA1} -d artifacts
-            mv as3-0.1.0.tgz artifacts/as3.tgz
+            
       - run:
           name: Package infra
           command: |
@@ -180,11 +180,11 @@ jobs:
       - run:
           name: deploy app
           command: |
-            helm upgrade as3 artifacts/as3.tgz -i -n test --eait --set image=$(cat artifacts/image.txt), dbhost=$(cat artifacts/dbendpoint.txt)
+            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n test --eait --set image=$(cat artifacts/image.txt), dbhost=$(cat artifacts/dbendpoint.txt)
       - run:
           name: migrate db
           command: |
-            kubectl exec deployment/as3 -n test -- node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/as -n test -- node_modules/.bin/sequelize db:migrate
 
 
 workflows:
