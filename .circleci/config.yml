@@ -147,7 +147,6 @@ jobs:
       - run:
           name: Package helm
           command: | 
-            
             helm package helm/as3 --app-version ${CIRCLE_SHA1} -d artifacts
             
       - run:
