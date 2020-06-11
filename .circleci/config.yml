@@ -183,7 +183,7 @@ jobs:
       - run:
           name: migrate db
           command: |
-            kubectl exec deployment/as3 -n test -- node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment -n test -- node_modules/.bin/sequelize db:migrate
 
 
 workflows:
