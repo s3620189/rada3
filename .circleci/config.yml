@@ -183,6 +183,7 @@ jobs:
       - run:
           name: migrate db
           command: |
+            kubectl get pods
             kubectl exec deployment -n test -- node_modules/.bin/sequelize db:migrate
 
 
