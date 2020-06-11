@@ -16,7 +16,7 @@ spec:
       - image: {{ .Values.image }}
         name: "as3"
         env:
-          - name: VTT_dbhost
+          - name: dbhost
             value: {{ .Values.dbhost }}
         ports:
         - containerPort: 80

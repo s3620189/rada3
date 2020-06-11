@@ -118,10 +118,6 @@ jobs:
       ECR: 899203606501.dkr.ecr.us-east-1.amazonaws.com
       reponame: app
       NODE_ENV: production
-      AWS_ACCESS_KEY_ID: ASIA5CXFWE7S2HK7MGVT
-      AWS_SECRET_ACCESS_KEY: r6kFunbhGPX7nbRx0X2ZdwzOgpb8FZ2Gl0LXCPff
-      AWS_SESSION_TOKEN: FwoGZXIvYXdzENn//////////wEaDPm1B0gAlvuPAKDHeiLLAYnJQgDZO+MKZTkaaGfqtXbIUgKQlubehpm7pmiB2xsEepyM4UZDbh7AqeDou5LvVcae6Lt+PV5GTiELtux4cnAnkZ7xXib1APtSC6l1muvOESGmQhCeFkb78H6eyncI4DO3FkKH9xN6k34p1IPrIR3z3zCyCC7Z/XXCARTNcGr7opr1FRwQKoS21jLsLuxFS7TMzCuCgLhsXQid2+ooWPG0Kkiaqe0oWqwi3QPO1hAJzoKgYUyDjpEOHyKKkvYBU+VIHsQyLJwFMQrPKJOvh/cFMi24SuCVA6H2Ag3cLNtPr+Y9Z0qvzFPZp+IhbJBJJ59N8NVfVzSm4Ve70Np1b10=
-      AWS_DEFAULT_REGION: us-east-1
     steps:
       - checkout
 
@@ -162,7 +158,31 @@ jobs:
           root: ./
           paths:
             - artifacts
+  deploy-test:
+    docker:
+      - image: cimg/base:2020.01
+    environment:
+      ENV: test
+    steps:
+      - attach_workspace:
+          at: ./
+      - setup-cd
 
+      - run:
+          name: deploy infra
+          command: |
+            cd artifacts/infra
+            make init
+            make up
+            terraform output endpoint > ../dbendpoint.txt
+      - run:
+          name: deploy app
+          command: |
+            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n test --eait --set image=$(cat artifacts/image.txt), dbhost=$(cat artifacts/dbendpoint.txt)
+      - run:
+          name: migrate db
+          command: |
+            kubectl exec deployment/as3 -n test -- node_modules/.bin/sequelize db:migrate
 
 
 workflows:
@@ -183,3 +203,6 @@ workflows:
           filters:
             branches:
               only: master
+      - deploy-test:
+          requires:
+            - build

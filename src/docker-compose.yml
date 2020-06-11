@@ -10,9 +10,13 @@ services:
       - POSTGRES_PASSWORD=password
   web:
     image: as3:latest
+    depends_on:
+      - db
     ports:
       - 3000:3000
+    command: "usr/app/startup.sh"
     environment:
+      - NODE_ENV=production
       - DB_USERNAME=postgres
       - DB_PASSWORD=password
       - DB_HOSTNAME=localhost
