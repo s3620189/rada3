@@ -5,4 +5,4 @@ subnet_ids = [
 username = "postgres"
 password = "password"
 vpc_id = "vpc-0073df96b5c01bf8f"
-name = "acme-db"
+name = "as3"

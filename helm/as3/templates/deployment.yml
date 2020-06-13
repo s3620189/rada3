@@ -18,5 +18,11 @@ spec:
         env:
           - name: dbhost
             value: {{ .Values.dbhost }}
+          - name: dbuser
+            value: {{ .Values.dbuser }}
+          - name: dbpass
+            value: {{ .Values.dbpass }}
+          - name: dbname
+            value: {{ .Value.dbname }}
         ports:
         - containerPort: 80

@@ -100,6 +100,7 @@ jobs:
             apt install postgresql-client-10 -y
             
             psql -h localhost -U postgres -c "CREATE DATABASE servian;"
+            node_modules/.bin/sequelize db:migrate
 
       - run: 
           name: End 2 end tests
@@ -183,8 +184,10 @@ jobs:
       - run:
           name: migrate db
           command: |
-            kubectl get pods
-            kubectl exec deployment -n test -- node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/as3 -n test -- npm install 
+            kubectl exec deployment/as3 -n test -- npm install -g mysql
+            kubectl exec deployment/as3 -n test -- env NODE_ENV=test node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/as3 -n test -- npm run start:pord
 
 
 workflows:

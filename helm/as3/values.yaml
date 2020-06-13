@@ -7,6 +7,9 @@ replicaCount: 5
 image: 899203606501.dkr.ecr.us-east-1.amazonaws.com/app:2a6bc03b560e8bfe94bba4acfedef9406b1f6ccc
 
 dbhost: localhost
+dbuser: postgres
+dbpass: password
+dbname: servian
 
 
 
