@@ -23,6 +23,6 @@ spec:
           - name: dbpass
             value: {{ .Values.dbpass }}
           - name: dbname
-            value: {{ .Value.dbname }}
+            value: {{ .Values.dbname }}
         ports:
         - containerPort: 80
