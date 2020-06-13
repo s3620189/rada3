@@ -187,11 +187,7 @@ jobs:
           command: |
             
             kubectl get pods -n test
-            kubectl logs deployment/as3
-            kubectl exec deployment/as3 -n test -- npm install
-            kubectl logs deployment/as3
-            kubectl exec deployment/as3 -n test -- npm install -g mysql
-            kubectl exec deployment/as3 -n test -- env NODE_ENV=test node_modules/.bin/sequelize db:migrate
+            kubectl exec deployment/as3 -n test -- node_modules/.bin/sequelize db:migrate
             
   deploy-prod:
     docker:
