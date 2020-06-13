@@ -183,14 +183,14 @@ jobs:
             helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n test --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbendpoint.txt)
             kubectl get pods -n test
       - run:
-          name: migrate db and start app
+          name: migrate db 
           command: |
             
             kubectl get pods -n test
-            kubectl exec deployment/as3 -n test -- npm install 
+            
             
             kubectl exec deployment/as3 -n test -- env NODE_ENV=test node_modules/.bin/sequelize db:migrate
-            kubectl exec deployment/as3 -n test -- npm run start:pord
+            
   deploy-prod:
     docker:
       - image: cimg/base:2020.01
@@ -219,10 +219,10 @@ jobs:
           command: |
             
             kubectl get pods -n prod
-            kubectl exec deployment/as3 -n prod -- npm install 
+            
             
             kubectl exec deployment/as3 -n prod -- env NODE_ENV=prod node_modules/.bin/sequelize db:migrate
-            kubectl exec deployment/as3 -n prod -- npm run start:pord
+            
 
 
 workflows:
