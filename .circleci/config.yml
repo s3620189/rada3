@@ -108,7 +108,7 @@ jobs:
           command: |
             cd src
 
-            npm run start:prod & 
+            npm start & 
             npx wait-on http://localhost:3000
             
             npm run test-e2e
