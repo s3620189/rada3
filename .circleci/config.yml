@@ -188,7 +188,6 @@ jobs:
             
             kubectl get pods -n test
             kubectl exec deployment/as3 -n test -- env NODE_ENV=development node_modules/.bin/sequelize db:migrate
-            kubectl exec deployment/as3 -n test -- env NODE_ENV=development npm start
             kubectl get service -n test
   deploy-prod:
     docker:
@@ -218,10 +217,10 @@ jobs:
           command: |
             
             kubectl get pods -n prod
-            kubectl exec deployment/as3 -n prod -- env NODE_ENV=production npm install
+
             
             kubectl exec deployment/as3 -n prod -- env NODE_ENV=production node_modules/.bin/sequelize db:migrate
-            kubectl exec deployment/as3 -n prod -- npm run start:prod
+            
 
 
 workflows:
