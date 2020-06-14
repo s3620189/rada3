@@ -30,6 +30,7 @@ kubectl get service -n test
 cd infra
 make down
 
+In circle ci we have fows : deploy-test and deploy-prod
 
 
 
