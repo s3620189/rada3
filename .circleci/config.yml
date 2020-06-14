@@ -284,6 +284,9 @@ workflows:
       - deploy-test:
           requires:
             - package
+      - e2e-non-production:
+          requires:
+            - deploy-test
       - deploy-prod:
           requires:
             - package
