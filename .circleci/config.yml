@@ -287,10 +287,13 @@ workflows:
       - e2e-non-production:
           requires:
             - deploy-test
+      - approval:
+          type: approval
+          requires:
+            - deploy-test
       - deploy-prod:
           requires:
-            - package
-            - deploy-test
+            - approval   
           filters:
             branches:
               only: master
