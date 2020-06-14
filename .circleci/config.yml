@@ -247,3 +247,4 @@ workflows:
       - deploy-prod:
           requires:
             - package
+            - deploy-test
