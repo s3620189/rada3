@@ -16,13 +16,13 @@ spec:
       - image: {{ .Values.image }}
         name: "as3"
         env:
-          - name: dbhost
+          - name: DB_HOSTNAME
             value: {{ .Values.dbhost }}
-          - name: dbuser
+          - name: DB_USERNAME
             value: {{ .Values.dbuser }}
-          - name: dbpass
+          - name: DB_PASSWORD
             value: {{ .Values.dbpass }}
-          - name: dbname
+          - name: DB_NAME
             value: {{ .Values.dbname }}
           - name: "PORT"
             value: "80"
