@@ -188,7 +188,7 @@ jobs:
             
             kubectl get pods -n test
             kubectl exec deployment/as3 -n test -- env NODE_ENV=development node_modules/.bin/sequelize db:migrate
-            
+            kubectl logs deployment/as3
   deploy-prod:
     docker:
       - image: cimg/base:2020.01
@@ -217,10 +217,10 @@ jobs:
           command: |
             
             kubectl get pods -n prod
-            
+            kubectl logs deployment/as3
             
             kubectl exec deployment/as3 -n prod -- env NODE_ENV=production node_modules/.bin/sequelize db:migrate
-            
+            kubectl logs deployment/as3
 
 
 workflows:
