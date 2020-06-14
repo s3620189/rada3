@@ -180,7 +180,7 @@ jobs:
       - run:
           name: deploy app
           command: |
-            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n test --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbendpoint.txt)
+            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n test --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbendpoint.txt)
             kubectl get pods -n test
       - run:
           name: migrate db 
@@ -210,7 +210,7 @@ jobs:
       - run:
           name: deploy app
           command: |
-            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n prod --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbprodendpoint.txt)
+            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n prod --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbprodendpoint.txt)
             kubectl get pods -n prod
       - run:
           name: migrate db
@@ -220,7 +220,7 @@ jobs:
 
             
             kubectl exec deployment/as3 -n prod -- env NODE_ENV=production node_modules/.bin/sequelize db:migrate
-            
+            kubectl get service -n prod
 
 
 workflows:
