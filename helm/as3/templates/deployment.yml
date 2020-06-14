@@ -24,7 +24,8 @@ spec:
             value: {{ .Values.dbpass }}
           - name: dbname
             value: {{ .Values.dbname }}
-        
+        command: ["/bin/sh","-c"]
+        args: ["npm install"]
         ports:
         - name: http
           containerPort: 80

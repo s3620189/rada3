@@ -189,6 +189,7 @@ jobs:
             kubectl get pods -n test
             kubectl exec deployment/as3 -n test -- env NODE_ENV=development node_modules/.bin/sequelize db:migrate
             kubectl logs deployment/as3
+            kubectl exec deployment/as3 -n test -- env NODE_ENV=development npm start
   deploy-prod:
     docker:
       - image: cimg/base:2020.01
@@ -206,11 +207,11 @@ jobs:
             cd artifacts/infra
             make init
             make up
-            terraform output endpoint > ../dbendpoint.txt
+            terraform output endpoint > ../dbprodendpoint.txt
       - run:
           name: deploy app
           command: |
-            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n prod --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbendpoint.txt)
+            helm upgrade as3 artifacts/as3-0.1.0.tgz -i -n prod --wait --set image=$(cat artifacts/image.txt),dbhost=$(cat artifacts/dbprodendpoint.txt)
             kubectl get pods -n prod
       - run:
           name: migrate db
@@ -248,3 +249,6 @@ workflows:
           requires:
             - package
             - deploy-test
+          filters:
+            branches:
+              only: master
